@@ -1,22 +1,21 @@
 # Build stage
 ARG GO_VERSION=1.23.4
-ARG APP_NAME=my-app
-ARG GIT_COMMIT
-ARG BUILD_NUMBER
+ARG APP_NAME=gokafkaexp
 
 FROM golang:${GO_VERSION}-bookworm AS build
 
 # Set environment variables
 ENV CGO_ENABLED=1
 
+# Create app directory and copy project to the app directory
+RUN mkdir /app
+ADD . /app
+
 # Create and set working directory
 WORKDIR /app
 
-# Copy application code to the build container
-COPY . .
-
 # Build the Go binary
-RUN go build -v -mod=vendor -buildvcs=true -ldflags '-linkmode=external' -o ${APP_NAME} ./cmd/${APP_NAME}/
+RUN go build -v -mod=vendor -buildvcs=true -ldflags '-linkmode=external' -o ${APP_NAME} .
 
 # Final stage - Minimal image with Go binary
 FROM debian:latest

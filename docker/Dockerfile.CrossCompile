@@ -5,7 +5,6 @@ ARG APP_NAME=gokafkaexp
 FROM --platform=$BUILDPLATFORM golang:${GO_VERSION}-bookworm AS build
 ARG TARGETOS
 ARG TARGETARCH
-ENV APP_NAME=${APP_NAME}
 
 # Set environment variables
 ENV CGO_ENABLED=1

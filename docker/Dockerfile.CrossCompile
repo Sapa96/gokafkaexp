@@ -16,6 +16,9 @@ ADD . /app
 # Create and set working directory
 WORKDIR /app
 
+RUN echo "TARGETOS: ${TARGETOS}, TARGETARCH: ${TARGETARCH}, APP_NAME: ${APP_NAME}"
+
+
 # Build the Go binary
 RUN GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -mod=vendor -buildvcs=true -ldflags '-linkmode=external' -o ${APP_NAME} .
 

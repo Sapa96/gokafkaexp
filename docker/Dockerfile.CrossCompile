@@ -16,7 +16,13 @@ ADD . /app
 # Create and set working directory
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y gcc-aarch64-linux-gnu
+RUN apt-get update && \
+    apt-get install -y \
+    gcc \
+    musl-dev \
+    aarch64-linux-gnu-gcc \
+    libc-dev \
+    && rm -rf /var/lib/apt/lists/*
 
 
 RUN echo "TARGETOS: ${TARGETOS}, TARGETARCH: ${TARGETARCH}, APP_NAME: ${APP_NAME}"

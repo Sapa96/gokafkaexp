@@ -1,5 +1,5 @@
 # Build stage
-ARG GO_VERSION=1.23.4
+ARG GO_VERSION=1.21
 ARG APP_NAME=gokafkaexp
 
 FROM golang:${GO_VERSION}-bookworm AS build

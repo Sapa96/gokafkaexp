@@ -1,8 +1,8 @@
 # Build stage
-ARG GO_VERSION=1.21
+ARG GO_VERSION=1.23.4
 ARG APP_NAME=gokafkaexp
 
-FROM golang:${GO_VERSION} AS build
+FROM --platform=$BUILDPLATFORM golang:${GO_VERSION}-bookworm AS build
 
 # Set environment variables
 ENV CGO_ENABLED=1

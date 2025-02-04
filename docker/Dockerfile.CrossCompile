@@ -20,7 +20,7 @@ RUN apt-get update && \
     apt-get install -y \
     gcc \
     musl-dev \
-    aarch64-linux-gnu-gcc \
+    gcc-aarch64-linux-gnu \
     libc-dev \
     && rm -rf /var/lib/apt/lists/*
 

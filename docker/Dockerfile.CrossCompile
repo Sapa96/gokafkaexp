@@ -19,11 +19,13 @@ WORKDIR /app
 RUN apt-get update && \
     apt-get install -y \
     gcc \
+    g++ \
     musl-dev \
     gcc-aarch64-linux-gnu \
     g++-aarch64-linux-gnu \
     libc6-dev-arm64-cross \
     libc-dev \
+    libglib2.0-dev \
     && rm -rf /var/lib/apt/lists/*
 
 
@@ -31,7 +33,10 @@ RUN echo "TARGETOS: ${TARGETOS}, TARGETARCH: ${TARGETARCH}, APP_NAME: ${APP_NAME
 
 
 # Build the Go binary
-RUN GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -mod=vendor -buildvcs=true -ldflags '-linkmode=external' -o ${APP_NAME} .
+RUN GOOS=${TARGETOS} GOARCH=${TARGETARCH} \
+    CC=aarch64-linux-gnu-gcc \
+    CXX=aarch64-linux-gnu-g++ \
+    go build -v -mod=vendor -buildvcs=true -ldflags '-linkmode=external' -o ${APP_NAME} .
 
 # Final stage - Minimal image with Go binary
 FROM debian:latest

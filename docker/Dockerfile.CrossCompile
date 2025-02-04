@@ -5,6 +5,7 @@ ARG APP_NAME=gokafkaexp
 FROM --platform=$BUILDPLATFORM golang:${GO_VERSION}-bookworm AS build
 ARG TARGETOS
 ARG TARGETARCH
+ENV APP_NAME=${APP_NAME}
 
 # Set environment variables
 ENV CGO_ENABLED=1
@@ -15,6 +16,9 @@ ADD . /app
 
 # Create and set working directory
 WORKDIR /app
+
+RUN apt-get update && apt-get install -y gcc-aarch64-linux-gnu
+
 
 RUN echo "TARGETOS: ${TARGETOS}, TARGETARCH: ${TARGETARCH}, APP_NAME: ${APP_NAME}"
 

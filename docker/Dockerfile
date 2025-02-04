@@ -2,7 +2,7 @@
 ARG GO_VERSION=1.21
 ARG APP_NAME=gokafkaexp
 
-FROM golang:${GO_VERSION}-bookworm AS build
+FROM golang:${GO_VERSION} AS build
 
 # Set environment variables
 ENV CGO_ENABLED=1
